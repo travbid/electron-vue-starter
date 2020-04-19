@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ES2015",
+    "module": "ESNext",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -17,9 +17,7 @@
       "chai"
     ],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": [ "src/renderer*" ],
     },
     "lib": [
       "esnext",
@@ -29,6 +27,7 @@
     ]
   },
   "include": [
+    "configs/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
