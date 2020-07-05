@@ -4,7 +4,6 @@
 	"description": "A template project combining Electron, Vue, Typescript, and Node Native Add-Ons",
 	"private": true,
 	"license": "MIT",
-	"author": "Travers <nothing@noemail.nz>",
 	"homepage": "https://github.com/electron/electron",
 	"main": "app/main.js",
 	"scripts": {
