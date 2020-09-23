@@ -26,7 +26,7 @@ void Add(const FunctionCallbackInfo<Value> &args) {
 		return;
 	}
 
-	if (not args[0]->IsNumber() or not args[1]->IsNumber()) {
+	if (!args[0]->IsNumber() || !args[1]->IsNumber()) {
 		v8::Isolate::GetCurrent()->ThrowException(v8::Exception::TypeError(
 		    String::NewFromUtf8(isolate, "Wrong arguments. Arguments must both be numbers")
           .ToLocalChecked()));
