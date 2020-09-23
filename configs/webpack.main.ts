@@ -1,7 +1,7 @@
 import path from "path";
 
 import webpack from "webpack";
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+const CopyPlugin = require('copy-webpack-plugin');
 import TerserPlugin from "terser-webpack-plugin";
 
 console.log("NODE_ENV:", process.env.NODE_ENV);
@@ -50,11 +50,10 @@ const config: webpack.Configuration = {
 		]
 	},
 	plugins: [
-		new CopyWebpackPlugin([{
-			from: path.join(__dirname, '../src/main/preload.js'),
-			to: "preload.js",
-		}])
-	]
+		new CopyPlugin([
+			{ from: path.join(__dirname, '../src/main/preload.js'), to: 'preload.js' },
+		])
+	],
 };
 
 export default config;

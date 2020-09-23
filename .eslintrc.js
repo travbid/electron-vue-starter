@@ -17,6 +17,7 @@ module.exports = {
 	rules: {
 		'@typescript-eslint/ban-ts-ignore': ["off"],
 		'@typescript-eslint/no-explicit-any': ["off"],
+		'@typescript-eslint/ban-ts-comment': ["off"],
 		indent: ["warn", "tab"],
 		'no-unused-vars': ["warn"],
 		'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
