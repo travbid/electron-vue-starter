@@ -25,8 +25,6 @@ const config: webpack.Configuration = {
 		minimize: isProd ? true : false,
 		minimizer: [new TerserPlugin({
 			parallel: true,
-			sourceMap: true,
-			cache: true,
 		})],
 	},
 	module: {
@@ -50,10 +48,11 @@ const config: webpack.Configuration = {
 		]
 	},
 	plugins: [
-		new CopyWebpackPlugin([{
-			from: path.join(__dirname, '../src/main/preload.js'),
-			to: "preload.js",
-		}])
+		new CopyWebpackPlugin({
+			patterns: [
+				{ from: path.join(__dirname, '../src/main/preload.js'), to: "preload.js"}
+			],
+		})
 	]
 };
 

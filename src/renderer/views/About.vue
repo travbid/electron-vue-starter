@@ -8,8 +8,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-// @ts-ignore
-import Proc from "@/api/proc.ts";
+import Proc from "@/api/proc";
 
 @Component
 export default class About extends Vue {

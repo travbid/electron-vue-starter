@@ -12,7 +12,7 @@ import electronDevtoolsInstaller, {VUEJS_DEVTOOLS} from "electron-devtools-insta
 // eslint-disable-next-line
 const adder = require("./native/build/Release/adder.node");
 
-app.allowRendererProcessReuse = true;
+// app.allowRendererProcessReuse = true;
 
 console.log("NODE_ENV:");
 console.log(process.env.NODE_ENV);
@@ -62,13 +62,13 @@ async function createWindow(): Promise<void> {
 		webPreferences: !isProd || process.env.E2E_BUILD === "true"
 			? {
 				contextIsolation: true,
-				enableRemoteModule: false,
+				// enableRemoteModule: false,
 				nodeIntegration: true,
 				preload: path.join(__dirname, "preload.js")
 			} : {
 				contextIsolation: true,
 				devTools: true,
-				enableRemoteModule: false,
+				// enableRemoteModule: false,
 				nodeIntegration: false,
 				preload: path.join(__dirname, "preload.js")
 			}
