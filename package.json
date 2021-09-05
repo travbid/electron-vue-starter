@@ -9,16 +9,20 @@
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"dev": "npm run rebuild && concurrently \"vue-cli-service serve\" \"npm run build-main && electron ./dist/app/main.js\"",
-		"build": "cross-env NODE_ENV=production vue-cli-service build src/renderer/main.ts && cross-env NODE_ENV=production npm run build-main",
+		"build": "npm run rebuild && cross-env NODE_ENV=production vue-cli-service build src/renderer/main.ts && cross-env NODE_ENV=production npm run build-main",
 		"build-main": "webpack --config ./configs/webpack.main.ts --colors",
 		"pkg": "cross-env NODE_ENV=production npm run build && electron-builder build --publish never",
 		"test:unit": "vue-cli-service test:unit",
 		"test:e2e": "vue-cli-service test:e2e",
 		"lint": "vue-cli-service lint",
 		"rebuild": "electron-rebuild -m ./src/main/native",
-		"postinstall": "npm run rebuild"
+		"postinstall": "electron-builder install-app-deps && npm run rebuild"
 	},
 	"build": {
+		"appx": {
+			"applicationId": "ElectronViewStarter",
+			"publisherDisplayName": "example"
+		},
 		"productName": "ElectronVueStarter",
 		"appId": "com.your.AppId",
 		"files": [
@@ -89,7 +93,7 @@
 		"@types/node": "12",
 		"@types/source-map-support": "^0.5.1",
 		"@types/terser-webpack-plugin": "^2.2.0",
-		"@types/webpack": "^4.41.11",
+		"@types/webpack": "^4.41.30",
 		"@types/webpack-merge": "^4.1.5",
 		"@typescript-eslint/eslint-plugin": "^2.26.0",
 		"@typescript-eslint/parser": "^2.26.0",
