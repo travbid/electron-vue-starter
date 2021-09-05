@@ -11,7 +11,7 @@
 		"dev": "npm run rebuild && concurrently \"vue-cli-service serve\" \"npm run build-main && electron ./dist/app/main.js\"",
 		"build": "cross-env NODE_ENV=production vue-cli-service build src/renderer/main.ts && cross-env NODE_ENV=production npm run build-main",
 		"build-main": "webpack --config ./configs/webpack.main.ts --colors",
-		"pkg": "cross-env NODE_ENV=production npm run build && electron-builder build --publish never && tput bel",
+		"pkg": "cross-env NODE_ENV=production npm run build && electron-builder build --publish never",
 		"test:unit": "vue-cli-service test:unit",
 		"test:e2e": "vue-cli-service test:e2e",
 		"lint": "vue-cli-service lint",
