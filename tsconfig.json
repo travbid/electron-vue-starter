@@ -17,7 +17,7 @@
       "chai"
     ],
     "paths": {
-      "@/*": [ "src/renderer*" ],
+      "@/*": [ "src/renderer/*" ],
     },
     "lib": [
       "esnext",
