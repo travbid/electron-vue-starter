@@ -2,7 +2,7 @@ console.log("main main.ts");
 
 import path from "path";
 
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, session } from "electron";
 // import { autoUpdater } from "electron-updater";
 
 import sourceMapSupport from "source-map-support";
@@ -51,6 +51,17 @@ async function installExtensions(): Promise<void | void[]> {
 
 async function createWindow(): Promise<void> {
 	console.log("createWindow");
+
+	session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+		if (!isProd) { return; }
+		callback({
+		  responseHeaders: {
+				...details.responseHeaders,
+				"Content-Security-Policy": ["default-src 'self'"]
+			}
+		})
+	})
+
 	if (!isProd || process.env.DEBUG_PROD === "true") {
 		await installExtensions();
 	}
