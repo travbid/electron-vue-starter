@@ -1,0 +1,57 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+      - ci
+    paths-ignore:
+      - '**.md'  # Ignore README changes
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.CITOKEN_SECRET }}
+        submodules: true
+    - name: Build
+      run: |
+        node --version
+        npm --version
+        npm install
+        npm run build
+        npm run pkg
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.CITOKEN_SECRET }}
+        submodules: true
+    - name: Build
+      run: |
+        rustc --version || echo "no rustc"
+        rustup --version
+        node --version
+        npm --version
+        npm install
+        npm run build
+        npm run pkg
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.CITOKEN_SECRET }}
+        submodules: true
+    - name: Lint
+      run: |
+        npm install
+        npm run lint
