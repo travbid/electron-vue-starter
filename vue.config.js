@@ -12,13 +12,14 @@ module.exports = {
 		resolve: {
 			alias: {
 				"@": path.join(__dirname, "src/renderer"),
-				vue$: "vue/dist/vue.esm.js",
+				'vue$': 'vue/dist/vue.runtime.esm-bundler.js',
 			},
 			extensions: [".js", ".json", ".ts", ".vue"],
 		},
 		target: isProd ? 'electron-renderer' : 'web',
 		optimization: {
-			minimize: isProd ? true : false
+			minimize: isProd ? true : false,
+			splitChunks: false,
 		},
 		// plugins: [
 		// 	new ScriptExtHtmlWebpackPlugin({
