@@ -53,12 +53,11 @@ async function createWindow(): Promise<void> {
 	console.log("createWindow");
 
 	session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-		if (!isProd) { return; }
 		callback({
-		  responseHeaders: {
+			responseHeaders: isProd ? {
 				...details.responseHeaders,
-				"Content-Security-Policy": ["default-src 'self'"]
-			}
+				"Content-Security-Policy": [ "default-src 'self';img-src 'self' data:"]
+			} : details.responseHeaders
 		})
 	})
 
