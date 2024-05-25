@@ -7,7 +7,7 @@ import { app, BrowserWindow, ipcMain, session } from "electron";
 
 import sourceMapSupport from "source-map-support";
 import electronDebug from "electron-debug";
-import electronDevtoolsInstaller, {VUEJS_DEVTOOLS} from "electron-devtools-installer";
+import electronDevtoolsInstaller, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 
 // eslint-disable-next-line
 const adder = require("./native/build/Release/adder.node");
@@ -26,7 +26,7 @@ const isProd: boolean = process.env.NODE_ENV === "production";
 // 	}
 // }
 
-let mainWindow: BrowserWindow | null = null
+let mainWindow: BrowserWindow  | null = null;
 
 console.log("sourceMapSupport.install()");
 sourceMapSupport.install();
@@ -44,7 +44,7 @@ async function installExtensions(): Promise<void | void[]> {
 	return Promise.all(
 		extensions.map(ext => {
 			console.log("electronDevtoolsInstaller:", ext);
-			electronDevtoolsInstaller(ext, forceDownload)
+			electronDevtoolsInstaller(ext, forceDownload);
 		}),
 	).catch(console.log);
 }
@@ -56,10 +56,11 @@ async function createWindow(): Promise<void> {
 		callback({
 			responseHeaders: isProd ? {
 				...details.responseHeaders,
-				"Content-Security-Policy": [ "default-src 'self';img-src 'self' data:"]
-			} : details.responseHeaders
-		})
-	})
+				// eslint-disable-next-line @typescript-eslint/naming-convention
+				"Content-Security-Policy": ["default-src 'self';img-src 'self' data:"],
+			} : details.responseHeaders,
+		});
+	});
 
 	if (!isProd || process.env.DEBUG_PROD === "true") {
 		await installExtensions();
@@ -74,27 +75,27 @@ async function createWindow(): Promise<void> {
 				contextIsolation: true,
 				// enableRemoteModule: false,
 				nodeIntegration: true,
-				preload: path.join(__dirname, "preload.js")
+				preload: path.join(__dirname, "preload.js"),
 			} : {
 				contextIsolation: true,
 				devTools: true,
 				// enableRemoteModule: false,
 				nodeIntegration: false,
-				preload: path.join(__dirname, "preload.js")
-			}
+				preload: path.join(__dirname, "preload.js"),
+			},
 	});
 
 	if (!isProd) {
 		mainWindow.webContents.openDevTools();
 	}
-	
-	const htmlUrl = isProd ? `file://${__dirname}/../index.html` : `http://localhost:8080`
+
+	const htmlUrl = isProd ? `file://${__dirname}/../index.html` : "http://localhost:8080";
 	mainWindow?.loadURL(htmlUrl);
 
 	mainWindow.webContents.on("did-finish-load", () => {
 		console.log("did-finish-load", mainWindow?.webContents.getURL());
 	});
-	
+
 	mainWindow.on("ready-to-show", () => {
 		console.log("ready-to-show");
 	});
@@ -123,7 +124,7 @@ app.on("activate", () => {
 	console.log("activate");
 	// On macOS it's common to re-create a window in the app when the
 	// dock icon is clicked and there are no other windows open.
-	if (mainWindow === null) createWindow();
+	if (mainWindow === null) { createWindow(); }
 });
 
 ipcMain.handle("adder", (event, arg1, arg2) => {
@@ -134,4 +135,4 @@ ipcMain.handle("adder", (event, arg1, arg2) => {
 	const runTime = (end[0] * 1000000000 + end[1] - (bgn[0] * 1000000000 + bgn[1])) / 1000;
 	console.log("adder.add() took " + runTime.toString() + "μs");
 	return added;
-})
+});

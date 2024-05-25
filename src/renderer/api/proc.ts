@@ -8,9 +8,9 @@ class Proc {
 		} else {
 			return Promise.resolve<any>(null);
 		}
-	}
+	};
 }
 
-const ProcInstance = new Proc();
+const procInstance = new Proc();
 
-export default ProcInstance;
+export default procInstance;
