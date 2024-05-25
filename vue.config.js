@@ -11,14 +11,15 @@ module.exports = {
 		devtool: "cheap-source-map",
 		resolve: {
 			alias: {
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				"@": path.join(__dirname, "src/renderer"),
-				'vue$': 'vue/dist/vue.runtime.esm-bundler.js',
+				"vue$": "vue/dist/vue.runtime.esm-bundler.js",
 			},
 			extensions: [".js", ".json", ".ts", ".vue"],
 		},
-		target: isProd ? 'electron-renderer' : 'web',
+		target: isProd ? "electron-renderer" : "web",
 		optimization: {
-			minimize: isProd ? true : false,
+			minimize: isProd,
 			splitChunks: false,
 		},
 		// plugins: [
@@ -27,5 +28,5 @@ module.exports = {
 		// 	})
 		// ]
 	},
-	publicPath: "./"
-}
+	publicPath: "./",
+};

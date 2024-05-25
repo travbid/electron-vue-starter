@@ -1,7 +1,7 @@
 import path from "path";
 
 import webpack from "webpack";
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+import CopyWebpackPlugin from "copy-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 
 console.log("NODE_ENV:", process.env.NODE_ENV);
@@ -15,14 +15,14 @@ const config: webpack.Configuration = {
 	entry: { main: path.join(__dirname, "../src/main/main.ts") },
 	output: {
 		path: path.join(__dirname, "../dist/app"),
-		libraryTarget: 'commonjs2',
-		filename: "main.js"
+		libraryTarget: "commonjs2",
+		filename: "main.js",
 	},
 	resolve: {
 		extensions: [".js", ".json", ".node", ".ts"],
 	},
 	optimization: {
-		minimize: isProd ? true : false,
+		minimize: isProd,
 		minimizer: [new TerserPlugin({
 			parallel: true,
 		})],
@@ -31,29 +31,29 @@ const config: webpack.Configuration = {
 		rules: [
 			{
 				test: /\.ts$/,
-				use: 'ts-loader',
+				use: "ts-loader",
 				include: [path.resolve(__dirname, "../src/main")],
-				exclude: /node_modules/
+				exclude: /node_modules/,
 			},
 			{
 				test: /\.js$/,
-				use: 'babel-loader',
+				use: "babel-loader",
 				include: [path.resolve(__dirname, "../src/main")],
-				exclude: /node_modules/
+				exclude: /node_modules/,
 			},
 			{
 				test: /\.node$/,
-				use: 'node-loader'
-			}
-		]
+				use: "node-loader",
+			},
+		],
 	},
 	plugins: [
 		new CopyWebpackPlugin({
 			patterns: [
-				{ from: path.join(__dirname, '../src/main/preload.js'), to: "preload.js"}
+				{ from: path.join(__dirname, "../src/main/preload.js"), to: "preload.js" },
 			],
-		})
-	]
+		}),
+	],
 };
 
 export default config;
